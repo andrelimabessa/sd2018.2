@@ -8,6 +8,7 @@ class CampoMinado():
     def __repr__(self):
         return f'matriz : {self.matriz} e bombas: {self.bombas}'
 
+    # recebe um valor para o eixo x e outro para o y que indica o local onde o jogador quer jogar
     def jogada(self, *jogada):
         for bombas in self.bombas:
             if jogada in self.bombas:
