@@ -7,11 +7,14 @@ class Campo:
 
 
     def __init__(self, nColuna, nLinha, nBombas):
-        self.campo = [[0 for i in range(nColuna)] for i in range(nLinha)]
-        self.campoMinado = self.gerarBombas(self.campo, nBombas, nLinha, nColuna)
+        self.campoLimpo = [['-' for i in range(nColuna)] for i in range(nLinha)]
+        self.campoMinado = [[0 for i in range(nColuna)] for i in range(nLinha)]
+        self.campoMinado = self.gerarBombas(self.campoMinado, nBombas, nLinha, nColuna)
         self.nJogadas = nColuna * nLinha - nBombas
-        self.mostrarCampo(self.campoMinado)
-        self.jogada(self.campoMinado, self.nJogadas)
+        #self.mostrarCampo(self.campoMinado)
+        self.mostrarCampo(self.campoLimpo)
+        
+        self.jogada(self.campoLimpo, self.campoMinado, self.nJogadas)
         #self.mostrarCampo(self.campoMinado)
 
     def __repr__(self): 
@@ -39,7 +42,7 @@ class Campo:
                     nBombas = nBombas - 1
         return campoMinado
 
-    def jogada(self, campoMinado, nJogadas):
+    def jogada(self, campoLimpo, campoMinado, nJogadas):
         
         self.totalJogadas = self.nJogadas
         while (self.nJogadas > 0):
@@ -48,33 +51,66 @@ class Campo:
             self.coluna = int(input("--> Informe a coluna: "))
 
             #persistencia.Salvar(self.linha, self.coluna, self.nJogadas, campoMinado)
-            if(campoMinado[self.linha][self.coluna] == 10):
-                print('BOMBA, GAME OVER!')
-                self.mostrarCampo(campoMinado)
-                break      
+
+            if(type(campoLimpo[self.linha][self.coluna]) == str):     #compara se a area é diferente do codigo ascii do ' '
+                if(campoMinado[self.linha][self.coluna] == 9):
+                    print('BOMBA, GAME OVER!')
+                    self.mostrarCampo(campoMinado)
+                    break      
+                else:
+                    self.nJogadas = self.nJogadas - 1
+                    self.vizinhos = self.pegaVizinhos(campoLimpo, campoMinado, self.linha, self.coluna)
+                    print(self.vizinhos)
+                    
+                    campoLimpo, campoMinado = self.contaBombas(self.vizinhos, campoMinado, campoLimpo)
+                    self.mostrarCampo(campoMinado)
+                    self.mostrarCampo(campoLimpo)
             else:
-                #print('TENTE DENOVO')
-                self.nJogadas = self.nJogadas - 1
-                campoMinado = self.bombasVizinhas(campoMinado, self.linha, self.coluna)
-                campoMinado[self.linha][self.coluna]
-                self.mostrarCampo(campoMinado)
-                      
-    def bombasVizinhas(self, campoMinado, linha, coluna):
-        #self.vizinhos = []
+                print('Jogada inválida, área já descoberta!', '\n')
+
+    def pegaVizinhos(self, campoLimpo, campoMinado, linha, coluna):
+        self.vizinhos = []
+        #self.cont = 0
         for i in range(-1, 2):
                     for j in range(-1, 2):
                         if i == 0 and j == 0:
+                            self.vizinhos.append((self.linha + i, self.coluna + j))
                             continue
-                        elif -1 < (self.linha + i) < len(campoMinado) and -1 < (self.coluna + j) < len(campoMinado) and campoMinado[self.linha + i][self.coluna + j] == 9:
+                        #elif -1 < (self.linha + i) < len(campoMinado) and -1 < (self.coluna + j) < len(campoMinado) and campoMinado[self.linha + i][self.coluna + j] == 9:
                             #erro na chamada recursiva, computador não suporta a qtd de chamadas
                             #self.vizinhoL = self.linha + i
                             #self.vizinhoC = self.coluna + j
                             #self.bombasVizinhas(campoMinado, self.vizinhoL, self.vizinhoC)
+                            #self.cont += 1
+                        elif -1 < (self.linha + i) < len(campoMinado) and -1 < (self.coluna + j) < len(campoMinado) and campoMinado[self.linha + i][self.coluna + j] != 9:# and type(campoMinado[self.linha + i][self.coluna + j]) == str:
+                            #self.pegaVizinhos(campoLimpo, campoMinado, self.linha + i, self.coluna + j)
+                            self.vizinhos.append((self.linha + i, self.coluna + j))
+                            #print(self.vizinhos)
                             
-                            self.campoMinado[self.linha][self.coluna] += 1
-                                             
-        return campoMinado  
+        #self.cont
+        #self.campoLimpo[self.linha][self.coluna] = self.cont                            
+        return self.vizinhos
 
+
+    def contaBombas(self, vizinhos, campoMinado, campoLimpo):
+        for x in self.vizinhos:
+            self.linha = x[0]
+            self.coluna = x[1]
+            #self.vizinhos = self.pegaVizinhos(campoLimpo, campoMinado, self.x, self.y)
+            #print(self.x, self.y)
+            self.cont = 0
+            for i in range(-1, 2):
+                for j in range(-1, 2):
+                    if i == 0 and j == 0:
+                        continue
+                    elif -1 < (self.linha + i) < len(campoMinado) and -1 < (self.coluna + j) < len(campoMinado) and campoMinado[self.linha + i][self.coluna + j] == 9:
+                        self.cont += 1
+            campoLimpo[self.linha][self.coluna] = self.cont                   
+                        
+            #self.campoLimpo[self.linha][self.coluna] = self.cont
+            
+            
+        return campoLimpo, campoMinado          
     
     def mostrarCampo(self, campoAtual):
                 print('================Início================', '\n')
