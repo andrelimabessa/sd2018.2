@@ -42,12 +42,14 @@ def obterMinaSalva(tamanho):
             string = string.replace("'", "")
             string = string.replace("\n", "")
             array = string.split(",")
+            
             for i in range(tamanho):
-                if(array[i] == ' X'):
-                    mina[idx][i] = 'X'
-                if(array[i] == ' 0'):
-                    mina[idx][i] = '0'
-                    minaJogavel[idx][i] = '0'
+
+                jogada = array[i].replace(" ", "")
+                if(jogada != 'X'):
+                    minaJogavel[idx][i] = jogada
+                mina[idx][i] = jogada
+
             idx = idx + 1
         arquivo.close()
         return (mina, minaJogavel)
@@ -90,7 +92,7 @@ def jogar():
                 gameOver = True
                 break
             else:
-                minaJogavel[linha][coluna] = "0"
+                minaJogavel[linha][coluna] = resultado
         elif(escolha == 2):
             salvarMina(mina.obterMina())
             break

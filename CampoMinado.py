@@ -29,8 +29,20 @@ class CampoMinado:
         if(celula == "X"):
             return "X"
         else:
-            self.mina[linha][coluna] = "0" 
-            return "0"
+            self.mina[linha][coluna] = self.calcularAoRedor(coluna, linha) 
+            return self.calcularAoRedor(coluna, linha)
+
+    def calcularAoRedor(self, coluna, linha):
+        qntdMinas = 0
+        if self.mina[linha][coluna + 1] == "X":  qntdMinas+=1
+        if self.mina[linha][coluna - 1] == "X": qntdMinas+=1
+        if self.mina[linha + 1][coluna] == "X": qntdMinas+=1
+        if self.mina[linha - 1][coluna] == "X": qntdMinas+=1
+        if self.mina[linha + 1][coluna + 1] == "X": qntdMinas+=1
+        if self.mina[linha - 1][coluna - 1] == "X": qntdMinas+=1
+        if self.mina[linha + 1][coluna - 1] == "X": qntdMinas+=1
+        if self.mina[linha - 1][coluna + 1] == "X": qntdMinas+=1
+        return qntdMinas
 
     def obterCampoRandom(self):        
         x = random.randint(0, self.tamanho-1)
