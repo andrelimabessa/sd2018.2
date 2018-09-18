@@ -1,8 +1,0 @@
-{
-    "linha": 2, 
-    "coluna": 2, 
-    "total_jogadas": 2,
-     "tabuleiro": [["*", "*"], ["*", "1"]], 
-     "coordenadas_bombas": [[0, 0]]
-    
-}
