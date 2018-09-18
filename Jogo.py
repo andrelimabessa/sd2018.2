@@ -72,7 +72,7 @@ def jogar():
         print("0 - Carregar Mina Salva ")
         print("1 - Escolher um campo ")
         print("2 - Salvar e sair ")
-        print("3 - Ver resposta ")
+        print("3 - Ver resposta (aparece em cima do campo jogavel para comparação)")
 
         escolha = input("ENTRE COM SUA ESCOLHA \n")
 
