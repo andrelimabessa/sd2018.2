@@ -1,4 +1,3 @@
-"""A command line version of minasweeper"""
 import random
 import re
 import time
