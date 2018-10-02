@@ -36,7 +36,7 @@ def bombasAoRedor(l,c,posBombas):
         count += 1
     if ([l,c+1] in posBombas):
         count += 1
-    return count;
+    return count
 
 def save(historico):
     hist = open('log_game.txt', 'w')
