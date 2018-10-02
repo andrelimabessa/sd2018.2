@@ -5,11 +5,12 @@ from string import ascii_lowercase
 class Campo:
 
     def __init__(self, nColuna, nLinha, nBombas):
+        self.nLinha = nLinha
+        self.nBombas = nBombas
         self.campoLimpo = [['-' for i in range(nColuna)] for i in range(nLinha)]
         self.campoMinado = [[0 for i in range(nColuna)] for i in range(nLinha)]
         self.nJogadas = nColuna * nLinha - nBombas
-        self.nLinha = nLinha
-        self.nBombas = nBombas
+        
         self.areaLivre = self.contaAreaslivres(self.campoLimpo)
 
         #gera as bombas randomicamente
