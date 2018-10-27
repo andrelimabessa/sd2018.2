@@ -2,15 +2,20 @@ import random
 
 class Campo:
     
+    """ Classe modelo para o jogo de Campo Minado Cliente/ Servidor """
+
     def __init__(self, fieldSize, numberBomb):
         self.numberBomb = numberBomb
-        self.cleanField = [['-' for i in range(fieldSize)] for i in range(fieldSize)] 
-        self.mineField = self.generateBomb([['-' for i in range(fieldSize)] for i in range(fieldSize)], 
-                                                self.numberBomb)
-        self.dict = self.createDictionary({}, self.cleanField)
+        self.cleanField = [['-' for i in
+        range(fieldSize)] for i in range(fieldSize)]
+        self.mineField = self.generateBomb([[0 for i in range(fieldSize)] for i in range(fieldSize)], self.numberBomb)
+        self.dict = self.createDictionary({}, fieldSize)
     
 
     def generateBomb(self, cleanField, numberBomb):
+        
+        """ Recebe um campo limpo e a quantidade de bombas e devolve um campo minado de forma randomica """
+
         numberBomb = numberBomb
         fieldSize = len(cleanField)
         mineField = cleanField
@@ -26,21 +31,17 @@ class Campo:
         return mineField
 
 
-    def createDictionary(self, dict, cleanField):
-        fieldSize = len(cleanField)
+    def createDictionary(self, dict, fieldSize):
+
+        """ Recebe um dicionario vazio e o tamanho do campo e devolve um dicionario com tupla(x, y) sendo a chave para cada posicao no campo """
+
         for x in range(fieldSize):
             for y in range(fieldSize):
                 dict[(x, y)] = '-'
+
+        dict['msg'] = 'Inicio'
+        dict['freeAreas'] = (fieldSize * fieldSize - self.numberBomb)
+        dict['played'] = 0
+        dict['altered'] = True
+        dict['contolPlay'] = 0
         return dict
-
-
-if __name__ == '__main__':
-    cm = Campo(3, 3)
-    print(cm.cleanField)
-    print(cm.mineField)
-    print(cm.dict)
-    print(cm.numberBomb)
-    print(type(cm.dict))
-    a = str(cm.dict)
-    print(a)
-    print(type(a))
