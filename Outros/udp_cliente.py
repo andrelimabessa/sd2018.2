@@ -61,6 +61,7 @@ def percorrerCampo(campoAtual, alteracoes):
     index = 1
     print(type(alteracoes))
     for l in campoAtual:
+        
         print('vetor l', l)
         y = 0
         x = x + 1
