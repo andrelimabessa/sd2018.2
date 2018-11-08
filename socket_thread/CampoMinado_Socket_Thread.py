@@ -4,8 +4,6 @@ import re
 import threading
 from datetime import datetime
 
-u"""Este módulo possui a implementação de UDP Server"""
-
 class Server:
     ENCODE = "UTF-8"
     MAX_BYTES = 65535
@@ -72,7 +70,7 @@ class Server:
         print(tupla)
         print(self.coordenadas_Minas)
         if tupla in self.coordenadas_Minas:
-            print("YYYYEEEEE, Você Morreeeuuu Abestadoo! Acertou uma mina!!!!\n")
+            print("Acertou uma mina!!!!\n")
             return(self.ACERTOU_MINA)
         qtdMinas = 0
         for y in [-1,0,1]:
