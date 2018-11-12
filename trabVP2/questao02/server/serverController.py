@@ -7,25 +7,25 @@ class MineField(serverModel.Campo):
     def played(self, line, column):
         if(line > (len(self.cleanField) - 1) or column > (len(self.cleanField) - 1) or line < 0 or column < 0):            
             self.dict['controlPlay'] = 1                                                                                  
-            self.dict['msg'] = 'Jogada inválida, coordenadas fora do campo de jogo!'
+            self.dict['msg'] = 'Jogada inválida!'
             self.dict['altered'] = False                                                                                  
         elif(self.mineField[line][column] == 9):                                                                           
             self.dict['controlPlay'] = 2                                                                                   
-            self.dict['msg'] = 'Bomba, Game Over!'
+            self.dict['msg'] = 'Bomba, Final de Jogo!'
             self.dict['altered'] = True  
             self.updateDict(self.mineField)                                                                               
         elif(type(self.cleanField[line][column]) == str):                                                                  
             neighbors = self.takeNeighbors(line, column)                                                                   
             self.bombCount(neighbors)                                                                                      
             self.dict['controlPlay'] = 3                                                                                  
-            self.dict['msg'] = 'Jogada bem sucedida!'
+            self.dict['msg'] = 'Jogada de sucesso!'
             self.dict['played'] += 1
             self.dict['altered'] = True                                                                                    
             self.dict['freeAreas'] = self.countFreeArea()                                                                  
             self.updateDict(self.cleanField)                                                                              
         else:                                                                                                              
             self.dict['controlPlay'] = 4                                                                                   
-            self.dict['msg'] = 'Jogada inválida, área já descoberta'
+            self.dict['msg'] = 'Área já descoberta'
             self.dict['altered'] = False                                                                                   
             
 

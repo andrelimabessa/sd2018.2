@@ -13,7 +13,7 @@ def main():
     except :
         for val in sys.exc_info():
             print(val)
-        print("Desativa a fila") 
+        print("Desativando") 
     finally:
         pass
         frontend.close()

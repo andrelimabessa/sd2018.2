@@ -25,32 +25,32 @@ class Minefield(domain.Field):
                 if (type(self.cleanField[line][column]) == str):
                     self.count = self.count + 1
         print(self.count, self.numberBomb)
-        print('numero de areas livre:', self.count - self.numberBomb)
+        print('Áreas livre:', self.count - self.numberBomb)
         return self.count - self.numberBomb
         
     def played(self, line, column):
         if(line > (len(self.cleanField) - 1) or column > (len(self.cleanField) - 1) or line < 0 or column < 0):
             self.dict['controlPlay'] = 1
-            self.dict['msg'] = 'Jogada inválida, coordenadas fora do campo de jogo!'
+            self.dict['msg'] = 'Jogada inválida!'
             self.dict['altered'] = False
         
         elif(self.mineField[line][column] == 9):
             self.dict['controlPlay'] = 2
-            self.dict['msg'] = 'Bomba, Game Over!'
+            self.dict['msg'] = 'Bomba, Fim de Jogo!'
             self.mineField = self.updateDict(self.mineField)
 
         elif(type(self.cleanField[line][column]) == str):  
             neighbors = self.takeNeighbors(line, column)
             self.bombCount(neighbors)
             self.dict['controlPlay'] = 3
-            self.dict['msg'] = 'Jogada bem sucedida!'
+            self.dict['msg'] = 'Jogada de sucesso!'
             self.dict['played'] += 1
             self.dict['freeAreas'] = self.countFreeArea()
             self.cleanField = self.updateDict(self.cleanField)
         
         else:
             self.dict['controlPlay'] = 4
-            self.dict['msg'] = 'Jogada inválida, área já descoberta'
+            self.dict['msg'] = 'Área já descoberta'
             self.dict['altered'] = False
             
 
@@ -78,7 +78,7 @@ class Minefield(domain.Field):
                 y = y + 1
         self.dict['altered'] = True
         if (self.dict['freeAreas'] <= 0):
-            self.dict['msg'] = 'Parabéns, você ganhou!'
+            self.dict['msg'] = 'Você ganhou!'
         return field
         
 

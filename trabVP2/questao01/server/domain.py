@@ -15,7 +15,7 @@ class Field:
             for y in range(fieldSize):
                 dict[(x, y)] = '-'
 
-        dict['msg'] = 'Inicio'
+        dict['msg'] = 'Iniciando...'
         dict['altered'] = True
         dict['freeAreas'] = (fieldSize * fieldSize - self.numberBomb)
         dict['played'] = 0

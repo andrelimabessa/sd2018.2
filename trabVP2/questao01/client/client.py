@@ -14,7 +14,7 @@ def client():
     sizeField = int(input("Informe o tamanho total:"))
     numberBobm = int(input("Informe quantidade de bombas:"))
     
-    cm = CampoMinado(sizeField)
+    cm = Minefield(sizeField)
     cm.dict['column'] = numberBobm
     cm.dict['line'] = sizeField
     
@@ -63,17 +63,17 @@ def client():
             cm.updateDict(answer)
             cm.showCleanField()
             print(answer['msg'])
-            print('Falta descobrir', answer['freeAreas'], 'áreas')
+            print('Falta ainda descobrir', answer['freeAreas'], 'áreas')
         else:
             cm.showCleanField()
             print(answer['msg'])
-            print('Falta descobrir', answer['freeAreas'], 'áreas')
+            print('Falta ainda descobrir', answer['freeAreas'], 'áreas')
 
         if(answer['controlPlay'] == 2):
             print('/n')
             print('/n')
             print('/n')
-            A = int(input('Digite 1 se quer jogar novamente'))
+            A = int(input('Digite 1 para jogar novamente'))
         sock.close()
     client()        
 
